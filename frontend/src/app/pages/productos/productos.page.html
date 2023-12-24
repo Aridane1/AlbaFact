@@ -1,0 +1,31 @@
+<ion-content>
+  <app-menu></app-menu>
+  <div class="relative">
+    <h2 class="text-5xl text-center">Productos</h2>
+    <ion-icon
+      name="add-circle-outline"
+      class="text-6xl absolute top-0 text-slate-700 cursor-pointer"
+      routerLink="/generar-producto"
+    ></ion-icon>
+  </div>
+  <div class="flex justify-center w-[95%] mt-10">
+    <div class="w-[90%] flex gap-4">
+      @for (item of productos; track $index) {
+      <div
+        class="bg-gray-200 p-4 w-fit pr-12 rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer"
+      >
+        <p class="text-lg font-bold">Producto: {{item.name}}</p>
+        <p class="text-gray-700">Precio: {{item.price}}</p>
+        <div class="text-center">
+          <button
+            class="bg-green-400 w-fit px-4 py-2 rounded-lg"
+            [routerLink]="['/generar-producto', { id: item.id }]"
+          >
+            Actualizar Producto
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</ion-content>
