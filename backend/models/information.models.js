@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
     importe: {
       type: Sequelize.DECIMAL(10, 2),
     },
+    year: {
+      type: Sequelize.INTEGER,
+    },
     numAlbaran: {
       type: Sequelize.INTEGER,
       references: { model: "albaranes", key: "numAlbaran" },

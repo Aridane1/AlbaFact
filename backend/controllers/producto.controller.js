@@ -2,8 +2,7 @@ const db = require("../models");
 const Producto = db.Producto;
 
 exports.create = (req, res) => {
-  let producto = { name: req.body.name };
-
+  let producto = req.body;
   Producto.create(producto)
     .then((data) => {
       if (!data)
@@ -17,6 +16,16 @@ exports.create = (req, res) => {
 
 exports.getAll = (req, res) => {
   Producto.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error en el servidor." });
+    });
+};
+
+exports.getOneProduct = (req, res) => {
+  Producto.findOne({ where: { id: req.params.id } })
     .then((data) => {
       res.send(data);
     })
@@ -42,9 +51,9 @@ exports.deleteByName = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  let producto = req.params.name;
+  let id = req.params.id;
   let updateProduct = { name: req.body.name };
-  Producto.update(updateProduct, { where: { name: producto } })
+  Producto.update(updateProduct, { where: { id: id } })
     .then((data) => {
       if (!data[0]) {
         return res
@@ -54,20 +63,6 @@ exports.update = (req, res) => {
       return res
         .status(200)
         .send({ message: "Actualización realizada con éxito" });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "Error en el servidor." });
-    });
-};
-
-exports.create = (req, res) => {
-  let producto = { name: req.body.name };
-
-  Producto.create(producto)
-    .then((data) => {
-      if (!data)
-        return res.status(400).send({ message: "Faild to create data" });
-      res.send({ message: "El producto fue creado exitosamente", data: data });
     })
     .catch((err) => {
       res.status(500).send({ message: "Error en el servidor." });

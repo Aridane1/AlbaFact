@@ -13,10 +13,10 @@ var corsOptions = {
 
 const db = require("./models");
 
-// db.sequelize.sync();
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Sync db without dropping.");
-});
+db.sequelize.sync();
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Sync db without dropping.");
+// });
 
 app.use(cors(corsOptions));
 

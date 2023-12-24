@@ -6,6 +6,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     year: {
       type: Sequelize.INTEGER,
+      primaryKey: true,
     },
     date: {
       type: Sequelize.DATE,

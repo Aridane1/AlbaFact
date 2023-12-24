@@ -3,6 +3,9 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING,
     },
+    price: {
+      type: Sequelize.DECIMAL(10, 2),
+    },
   });
   return Producto;
 };
