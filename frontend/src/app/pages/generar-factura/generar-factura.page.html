@@ -1,0 +1,43 @@
+<ion-content>
+  <app-menu></app-menu>
+  <div class="pt-5 pl-5">
+    <app-year-button (year)="changeYear($event)"></app-year-button>
+  </div>
+  <div class="flex justify-center">
+    <div
+      class="flex flex-col w-60 rounded-md h-60 max-h-60 border shadow-xl p-4 overflow-y-auto"
+    >
+      <div *ngFor="let elemento of albaranes" class="mb-4 flex flex-col">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input
+            type="checkbox"
+            [value]="elemento.numAlbaran"
+            (change)="onCheckboxChange(elemento)"
+            class="form-checkbox text-blue-500"
+          />
+          <span class="text-gray-800"
+            >Nº de albaran: {{ elemento.numAlbaran }}</span
+          >
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center mt-5">
+    <button
+      class="bg-blue-500 px-4 py-2 rounded max-w-48 hover:bg-blue-600 transition-colors duration-300 text-white"
+      (click)="enviarDatosABaseDeDatos()"
+    >
+      Recuperar albaranes seleccionados
+    </button>
+  </div>
+
+  @if(informations){
+
+  <app-table [dataAlbaran]="informations"></app-table>
+  <div class="flex flex-col gap-2 items-center">
+    <p>Total bruto:{{bruto}}</p>
+    <p>Total bruto:{{descuento |number:"1.2-2"}}</p>
+    <p>Total bruto:{{neto |number:"1.2-2"}}</p>
+  </div>
+  }
+</ion-content>

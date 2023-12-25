@@ -25,6 +25,10 @@ export class InformationService {
     return this.httpClient.get(`${this.endpoint}/${numAlbaran}/${year}`);
   }
 
+  getManyInfoAlbaran(albaran: any) {
+    return this.httpClient.post(`${this.endpoint}/many-information`, albaran);
+  }
+
   deleteInfo(id: number) {
     return this.httpClient.delete(`${this.endpoint}/${id}`);
   }

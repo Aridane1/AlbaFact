@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'productos',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -25,19 +25,35 @@ const routes: Routes = [
       import('./pages/productos/productos.module').then(
         (m) => m.ProductosPageModule
       ),
-  },  {
+  },
+  {
     path: 'generar-producto',
-    loadChildren: () => import('./pages/generar-producto/generar-producto.module').then( m => m.GenerarProductoPageModule)
+    loadChildren: () =>
+      import('./pages/generar-producto/generar-producto.module').then(
+        (m) => m.GenerarProductoPageModule
+      ),
   },
   {
     path: 'generar-albaran',
-    loadChildren: () => import('./pages/generar-albaran/generar-albaran.module').then( m => m.GenerarAlbaranPageModule)
+    loadChildren: () =>
+      import('./pages/generar-albaran/generar-albaran.module').then(
+        (m) => m.GenerarAlbaranPageModule
+      ),
   },
   {
     path: 'modify-albaran',
-    loadChildren: () => import('./pages/modify-albaran/modify-albaran.module').then( m => m.ModifyAlbaranPageModule)
+    loadChildren: () =>
+      import('./pages/modify-albaran/modify-albaran.module').then(
+        (m) => m.ModifyAlbaranPageModule
+      ),
   },
-
+  {
+    path: 'generar-factura',
+    loadChildren: () =>
+      import('./pages/generar-factura/generar-factura.module').then(
+        (m) => m.GenerarFacturaPageModule
+      ),
+  },
 ];
 
 @NgModule({

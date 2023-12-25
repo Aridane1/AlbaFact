@@ -135,6 +135,27 @@ exports.getAllByNumAlbaranAndYear = (req, res) => {
     });
 };
 
+exports.getManyInformationByNumAlbaranAndYear = async (req, res) => {
+  const albaranes = req.body;
+
+  const dataPromises = albaranes.map(async (albaran) => {
+    return Information.findAll({
+      where: { numAlbaran: albaran.numAlbaran, year: albaran.year },
+      raw: true,
+    });
+  });
+
+  const results = await Promise.all(dataPromises);
+  const info = [];
+  for (const iterator of results) {
+    for (const data of iterator) {
+      info.push(data);
+    }
+  }
+
+  res.send(info);
+};
+
 exports.deleteById = (req, res) => {
   const id = req.params.id;
   Information.destroy({ where: { id: id } })

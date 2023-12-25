@@ -11,10 +11,12 @@ export class YearButtonComponent implements OnInit {
   selectedYear: number = this.currentYear;
   availableYears: any = [];
   @Output() year = new EventEmitter<any>();
+
   constructor(private albaranService: AlbaranService) {}
 
   ngOnInit() {
     this.loadAvailableYears();
+    console.log('hola');
   }
 
   onSelectYear(year: number): void {

@@ -14,9 +14,11 @@ export class ProductosPage implements OnInit {
   ngOnInit() {
     this.getAllProductos();
   }
+
   ionViewWillEnter() {
     this.getAllProductos();
   }
+
   async getAllProductos() {
     this.productos = await firstValueFrom(
       this.productoService.getAllProductos()

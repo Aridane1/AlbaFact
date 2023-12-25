@@ -20,6 +20,7 @@ exports.getAll = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send({ message: "Error en el servidor." });
     });
 };
