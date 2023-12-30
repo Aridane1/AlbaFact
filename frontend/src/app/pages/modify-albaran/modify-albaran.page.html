@@ -1,178 +1,272 @@
 <ion-content>
   <app-menu> </app-menu>
-  <h2 class="text-5xl text-center">Modificar Albaran</h2>
   @if (cargaAlbaran && cargaProducto) {
 
-  <form
-    [formGroup]="albaranForm"
-    class="max-w-md mx-auto p-4 bg-slate-200 shadow-md rounded-md mt-24"
-  >
-    <div class="mb-4 flex gap-2">
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="numero-albaran"
-        >
-          Nº albaran
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="numero-albaran"
-          formControlName="numAlbaran"
-          type="number"
-          [readOnly]="true"
-        />
-      </div>
-      <div>
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
-          Fecha
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="date"
-          formControlName="date"
-          type="date"
-          [readOnly]="true"
-        />
-      </div>
-      <div class="w-full">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="year">
-          Año
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="year"
-          formControlName="year"
-          type="number"
-          [readOnly]="true"
-        />
-      </div>
-    </div>
-    <div class="mb-4 flex gap-2">
-      <div>
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="lote">
-          Lote
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="lote"
-          formControlName="lote"
-          type="text"
-        />
-      </div>
-      <div class="w-full">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="cantidad"
-        >
-          Cantidad
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="cantidad"
-          formControlName="cantidad"
-          type="number"
-        />
-      </div>
-      <div class="w-full">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="kilos">
-          Kilos
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="kilos"
-          formControlName="kilos"
-          type="number"
-          (change)="onProductSelected()"
-        />
-      </div>
-    </div>
-    <div class="mb-4 flex gap-2">
-      <div>
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="producto"
-        >
-          Producto
-        </label>
-        <select
-          formControlName="producto"
-          id="producto"
-          class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-44"
-          (change)="onProductSelected()"
-        >
-          <option *ngFor="let producto of productos" [value]="producto.name">
-            {{ producto.name }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="precio">
-          Precio
-        </label>
-        <input
-          type="text"
-          id="precio"
-          formControlName="precio"
-          [readonly]="true"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div>
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="importe">
-          Importe
-        </label>
-        <input
-          type="text"
-          id="importe"
-          formControlName="importe"
-          [readonly]="true"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          [value]="albaranForm.get('importe')?.value | number : '1.2-2'"
-        />
-      </div>
-    </div>
-    <div class="flex justify-center mt-5">
-      @if (!selector) {
-
+  <div class="relative">
+    <h2 class="text-5xl text-center">Modificar Albaran</h2>
+    <div class="absolute top-6 right-2">
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        (click)="addValuesInTable()"
+        (click)="generarPdf()"
+        class="bg-blue-400 right-0 px-4 py-2 rounded"
       >
-        Agregar Valor a la Tabla
+        Generar PDF
       </button>
-      }@else {
-
-      <div class="flex flex-col justify-center items-center gap-2">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
-          (click)="modifyInfo()"
-        >
-          Modificar Valor de la Tabla
-        </button>
-        <button
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
-          (click)="reset()"
-        >
-          Cancelar
-        </button>
-      </div>
-      }
     </div>
-  </form>
-  }
-
-  <app-table
-    [dataAlbaran]="dataAlbaran"
-    (updateItem)="putDataInForm($event)"
-    (deleteItem)="delete($event)"
-  ></app-table>
-  <div class="flex justify-center">
-    <button
-      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
-      (click)="finishAlbaran()"
-    >
-      Terminar Albaran
-    </button>
   </div>
+
+  <div class="flex justify-center">
+    <div class="flex justify-between w-[90%]">
+      <form
+        [formGroup]="albaranForm"
+        class="max-w-md mx-auto p-4 bg-slate-200 shadow-md rounded-md mt-24"
+      >
+        <div class="mb-4 flex gap-2">
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="numero-albaran"
+            >
+              Nº albaran
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="numero-albaran"
+              formControlName="numAlbaran"
+              type="number"
+              [readOnly]="true"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="date"
+            >
+              Fecha
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="date"
+              formControlName="date"
+              type="date"
+              [readOnly]="true"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="year"
+            >
+              Año
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="year"
+              formControlName="year"
+              type="number"
+              [readOnly]="true"
+            />
+          </div>
+        </div>
+        <div class="mb-4 flex gap-2">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="lote"
+            >
+              Lote
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="lote"
+              formControlName="lote"
+              type="text"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="bulto"
+            >
+              Bultos
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="bulto"
+              formControlName="bulto"
+              type="number"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="cantidad"
+            >
+              Unidades
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="cantidad"
+              formControlName="cantidad"
+              type="number"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="kilos-caja"
+            >
+              Peso Caja
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="kilos-caja"
+              formControlName="kilosC"
+              type="number"
+            />
+          </div>
+        </div>
+        <div class="mb-4 flex gap-2">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="kilos-brutos"
+            >
+              Kilos Brutos
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="kilos-brutos"
+              formControlName="kilosB"
+              type="text"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="kilos-palet"
+            >
+              Peso Palet
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="kilos-palet"
+              formControlName="kilosP"
+              type="number"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="kilos-netos"
+            >
+              Kilos Netos
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="kilos-netos"
+              formControlName="kilosN"
+              type="number"
+              (change)="onProductSelected()"
+            />
+          </div>
+        </div>
+        <div class="mb-4 flex gap-2">
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="producto"
+            >
+              Producto
+            </label>
+            <select
+              formControlName="producto"
+              id="producto"
+              class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-44"
+              (change)="onProductSelected()"
+            >
+              <option
+                *ngFor="let producto of productos"
+                [value]="producto.name"
+              >
+                {{ producto.name }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="precio"
+            >
+              Precio
+            </label>
+            <input
+              type="text"
+              id="precio"
+              formControlName="precio"
+              [readonly]="true"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="importe"
+            >
+              Importe
+            </label>
+            <input
+              type="text"
+              id="importe"
+              formControlName="importe"
+              [readonly]="true"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              [value]="albaranForm.get('importe')?.value | number : '1.2-2'"
+            />
+          </div>
+        </div>
+        <div class="flex justify-center mt-5">
+          @if (!selector) {
+
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            (click)="addValuesInTable()"
+          >
+            Agregar Valor a la Tabla
+          </button>
+          }@else {
+          <div class="flex flex-col justify-center items-center gap-2">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
+              (click)="modifyInfo()"
+            >
+              Modificar Valor de la Tabla
+            </button>
+            <button
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
+              (click)="reset()"
+            >
+              Cancelar
+            </button>
+          </div>
+          }
+        </div>
+      </form>
+      <div class="flex flex-col">
+        <app-table
+          [dataAlbaran]="dataAlbaran"
+          (updateItem)="putDataInForm($event)"
+          (deleteItem)="delete($event)"
+        ></app-table>
+        <div class="flex justify-center">
+          <button
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-fit"
+            (click)="finishAlbaran()"
+          >
+            Terminar Albaran
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
 </ion-content>

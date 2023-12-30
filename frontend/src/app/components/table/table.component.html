@@ -4,11 +4,15 @@
       <tr class="bg-gray-200">
         <th class="border-b p-2">Nº Albaran</th>
         <th class="border-b p-2">Lote</th>
-        <th class="border-b p-2">Cantidad</th>
-        <th class="border-b p-2">Kilos</th>
-        <th class="border-b p-2">Precio</th>
+        <th class="border-b p-2">Bultos</th>
         <th class="border-b p-2">Producto</th>
-        <th class="border-b p-2">Importe</th>
+        <th class="border-b p-2">Peso Bruto</th>
+        <th class="border-b p-2">Uds</th>
+        <th class="border-b p-2">Peso Caja</th>
+        <th class="border-b p-2">Peso Palet</th>
+        <th class="border-b p-2">Peso Neto</th>
+        <th class="border-b p-2">Precio</th>
+        <th class="border-b p-2">Total</th>
         <th class="border-b p-2">Acciones</th>
       </tr>
     </thead>
@@ -19,10 +23,14 @@
       >
         <td class="p-2">{{ item.numAlbaran }}</td>
         <td class="p-2">{{ item.lote }}</td>
-        <td class="p-2">{{ item.cantidad }}</td>
-        <td class="p-2">{{ item.kilos }}</td>
-        <td class="p-2">{{ item.precio }}€</td>
+        <td class="p-2">{{ item.bulto }}</td>
         <td class="p-2">{{ item.producto }}</td>
+        <td class="p-2">{{ item.kilosB }}</td>
+        <td class="p-2">{{ item.cantidad }}</td>
+        <td class="p-2">{{ item.kilosC }}</td>
+        <td class="p-2">{{ item.kilosP }}</td>
+        <td class="p-2">{{ item.kilosN }}</td>
+        <td class="p-2">{{ item.precio }}€</td>
         <td class="p-2">{{ item.importe }}€</td>
         <td class="p-2 flex gap-2">
           <button (click)="actualizarItem(item, i)">

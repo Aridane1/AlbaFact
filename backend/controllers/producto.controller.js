@@ -53,7 +53,7 @@ exports.deleteByName = (req, res) => {
 
 exports.update = (req, res) => {
   let id = req.params.id;
-  let updateProduct = { name: req.body.name };
+  let updateProduct = { name: req.body.name, price: req.body.price };
   Producto.update(updateProduct, { where: { id: id } })
     .then((data) => {
       if (!data[0]) {

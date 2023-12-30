@@ -3,10 +3,25 @@ module.exports = (sequelize, Sequelize) => {
     cantidad: {
       type: Sequelize.INTEGER,
     },
+    bulto: {
+      type: Sequelize.INTEGER,
+    },
     lote: {
       type: Sequelize.INTEGER,
     },
-    kilos: {
+    kilosB: {
+      type: Sequelize.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    kilosC: {
+      type: Sequelize.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    kilosN: {
+      type: Sequelize.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    kilosP: {
       type: Sequelize.DECIMAL(10, 2),
     },
     precio: {

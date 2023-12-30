@@ -58,6 +58,7 @@ export class GenerarProductoPage implements OnInit {
       .updateProduct({ name: name, price: price }, this.id)
       .subscribe((data) => {
         this.productoForm.reset();
+        this.router.navigateByUrl('/productos');
       });
   }
 }

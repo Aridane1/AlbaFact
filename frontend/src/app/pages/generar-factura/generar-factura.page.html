@@ -1,5 +1,6 @@
 <ion-content>
   <app-menu></app-menu>
+  <button (click)="generarPDF()">Generar PDF</button>
   <div class="pt-5 pl-5">
     <app-year-button (year)="changeYear($event)"></app-year-button>
   </div>
@@ -35,9 +36,9 @@
 
   <app-table [dataAlbaran]="informations"></app-table>
   <div class="flex flex-col gap-2 items-center">
-    <p>Total bruto:{{bruto}}</p>
-    <p>Total bruto:{{descuento |number:"1.2-2"}}</p>
-    <p>Total bruto:{{neto |number:"1.2-2"}}</p>
+    <p>Total bruto:{{bruto |number:"1.2-2"}}</p>
+    <p>Descuento:{{descuento |number:"1.2-2"}}</p>
+    <p>Total neto:{{neto |number:"1.2-2"}}</p>
   </div>
   }
 </ion-content>

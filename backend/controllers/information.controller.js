@@ -4,7 +4,7 @@ const Producto = db.Producto;
 
 exports.createManyInformation = (req, res) => {
   let informations = req.body;
-
+  c;
   if (!Array.isArray(informations)) {
     return res.status(400).send({
       message: "La solicitud debe contener una lista de informacion.",
@@ -86,7 +86,11 @@ exports.createOneInformation = async (req, res) => {
   }
 
   let info = {
-    kilos: information[0].kilos,
+    kilosC: information[0].kilosC,
+    kilosP: information[0].kilosP,
+    kilosB: information[0].kilosB,
+    kilosN: information[0].kilosN,
+    bulto: information[0].bulto,
     importe: information[0].importe,
     cantidad: information[0].cantidad,
     lote: information[0].lote,
@@ -202,7 +206,11 @@ exports.update = (req, res) => {
 
       if (!information.id) {
         let info = {
-          kilos: information.kilos,
+          kiloC: information.kiloC,
+          kiloP: information.kiloP,
+          kiloN: information.kiloN,
+          kiloB: information.kiloB,
+          bulto: information.bulto,
           importe: information.importe,
           cantidad: information.cantidad,
           lote: information.lote,
@@ -235,9 +243,7 @@ exports.update = (req, res) => {
 };
 
 function quitarComas(valorConComas) {
-  // Reemplaza las comas por nada para quitarlas
   const valorSinComas = valorConComas.replace(",", "");
-  // Parsea el resultado como un número usando parseFloat o Number
   const valorNumerico = parseFloat(valorSinComas);
 
   return valorNumerico;

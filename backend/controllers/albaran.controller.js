@@ -78,6 +78,8 @@ exports.create = async (req, res) => {
 
   if (!req.body.date) {
     albaran.date = Date.now();
+  } else {
+    albaran.date = new Date(albaran.date);
   }
   Albaran.create(albaran)
     .then((data) => {
