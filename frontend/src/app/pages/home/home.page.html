@@ -1,11 +1,25 @@
 <ion-content>
-  <app-menu></app-menu>
-  <div class="relative">
-    <h2 class="text-5xl text-center">Facturas</h2>
-    <ion-icon
-      name="add-circle-outline"
-      class="text-6xl absolute top-0 text-slate-700 cursor-pointer"
-      routerLink="/generar-factura"
-    ></ion-icon>
+  <div class="flex flex-col h-screen justify-center items-center">
+    <div class="text-center mb-10 w-52 sm:w-full">
+      <p class="text-6xl">ALBAFACT</p>
+    </div>
+    <div class="flex justify-center">
+      <div
+        class="bg-slate-500 max-w-[85%] sm:max-w-[100%] w-fit h-fit p-10 rounded"
+      >
+        <div class="flex flex-col gap-10 pt-2 items-center">
+          <div>
+            <button class="bg-white py-3 px-12 rounded" routerLink="/login">
+              Iniciar sesión
+            </button>
+          </div>
+          <div>
+            <button class="bg-white py-3 px-12 rounded" routerLink="/register">
+              Crear cuenta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>

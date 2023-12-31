@@ -35,7 +35,7 @@ exports.delete = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-  Albaran.findAll()
+  Albaran.findAll({ where: { userId: req.params.userId } })
     .then((data) => {
       if (!data) {
         return res.status(404).send({ message: "No data found" });
@@ -47,9 +47,9 @@ exports.getAll = (req, res) => {
     });
 };
 
-exports.getAllAlbaranesByYear = (req, res) => {
+exports.getAllAlbaranesByYearAndUser = (req, res) => {
   Albaran.findAll({
-    where: { year: req.params.year },
+    where: { year: req.params.year, userId: req.params.userId },
   })
     .then((data) => {
       if (!data) {
@@ -65,7 +65,9 @@ exports.getAllAlbaranesByYear = (req, res) => {
 exports.create = async (req, res) => {
   let albaran = req.body;
   if (!req.body.year) {
-    await Albaran.findAll({ where: { year: new Date().getFullYear() } })
+    await Albaran.findAll({
+      where: { year: new Date().getFullYear(), userId: req.body.userId },
+    })
       .then((albaranes) => {
         albaran.numAlbaran = albaranes.length + 1;
         const currentYear = new Date().getFullYear();
@@ -91,9 +93,13 @@ exports.create = async (req, res) => {
     });
 };
 
-exports.getAlbaranByNumAlbaranAndYear = (req, res) => {
+exports.getAlbaranByNumAlbaranYear = (req, res) => {
   Albaran.findOne({
-    where: { numAlbaran: req.params.numAlbaran, year: req.params.year },
+    where: {
+      numAlbaran: req.params.numAlbaran,
+      year: req.params.year,
+      userId: req.params.userId,
+    },
   })
     .then((data) => {
       if (!data) {

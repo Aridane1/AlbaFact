@@ -8,16 +8,16 @@ export class AlbaranService {
   endpoint = 'http://localhost:8080/api/albaranes';
   constructor(private httpClient: HttpClient) {}
 
-  postAlbaran() {
-    return this.httpClient.post(this.endpoint, null);
+  postAlbaran(user: any) {
+    return this.httpClient.post(this.endpoint, user);
   }
 
-  getAllAlbaranes() {
-    return this.httpClient.get(this.endpoint);
+  getAllAlbaranesByUserId(userId: number) {
+    return this.httpClient.get(this.endpoint + `/albaranUser/${userId}`);
   }
 
-  getAllAlbaranesByYear(year: number) {
-    return this.httpClient.get(this.endpoint + `/${year}`);
+  getAllAlbaranesByYearAndUser(year: number, userId: number) {
+    return this.httpClient.get(this.endpoint + `/${year}/${userId}`);
   }
 
   getAlbaranByNumAlbaranAndYear(numAlbaran: number, year: number) {

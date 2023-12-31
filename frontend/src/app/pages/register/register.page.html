@@ -1,0 +1,93 @@
+<ion-content>
+  <div class="flex flex-col h-screen justify-center items-center">
+    <div class="text-white text-center mb-10 w-52 sm:w-full">
+      <p class="text-6xl">Crear cuenta</p>
+    </div>
+    <div class="flex justify-center">
+      <div
+        class="bg-slate-500 max-w-[85%] sm:max-w-[100%] w-fit h-fit pt-10 pr-10 pl-10 rounded relative"
+      >
+        <div class="absolute top-2 left-2">
+          <ion-icon
+            name="arrow-back-circle-outline"
+            class="text-3xl cursor-pointer"
+            routerLink="/home"
+          ></ion-icon>
+        </div>
+        <form
+          [formGroup]="registerForm"
+          class="flex flex-col gap-3 pt-2 items-center"
+        >
+          <div>
+            <label for="email" class="text-lg text-black">Tu nombre:</label>
+            <input
+              type="text"
+              formControlName="name"
+              id="name"
+              class="block border p-2 focus:outline-none focus:ring focus:ring-blue-200 rounded"
+            />
+          </div>
+          <div>
+            <label for="email" class="text-lg text-black"
+              >Correo electornico:</label
+            >
+            <input
+              type="email"
+              formControlName="email"
+              id="email"
+              class="block border p-2 focus:outline-none focus:ring focus:ring-blue-200 rounded"
+            />
+          </div>
+          <div>
+            <label for="dni" class="text-lg text-black">DNI:</label>
+            <input
+              type="dni"
+              formControlName="dni"
+              id="dni"
+              class="block border p-2 focus:outline-none focus:ring focus:ring-blue-200 rounded"
+            />
+          </div>
+          <div>
+            <label for="direccion" class="text-lg text-black">Direccion:</label>
+            <input
+              type="direccion"
+              formControlName="direccion"
+              id="direccion"
+              class="block border p-2 focus:outline-none focus:ring focus:ring-blue-200 rounded"
+            />
+          </div>
+          <div>
+            <label for="password" class="text-lg text-black">Contraseña:</label>
+            <input
+              type="password"
+              formControlName="password"
+              id="password"
+              class="block border p-2 focus:outline-none focus:ring focus:ring-blue-200 rounded"
+            />
+          </div>
+          <div class="m-3">
+            <button
+              type="submit"
+              (click)="register()"
+              class="bg-white py-3 px-10 rounded"
+            >
+              Registrarte
+            </button>
+          </div>
+          <div class="relative pt-3">
+            <div class="flex justify-center w-full bottom-0">
+              <div class="flex flex-col items-center">
+                <p
+                  routerLink="/login"
+                  class="text-black text-lg cursor-pointer"
+                >
+                  Iniciar sesión
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

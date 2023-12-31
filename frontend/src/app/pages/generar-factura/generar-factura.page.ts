@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { AlbaranService } from 'src/app/services/albaran.service';
 import { InformationService } from 'src/app/services/information.service';
@@ -18,12 +19,15 @@ export class GenerarFacturaPage implements OnInit {
   irpf: number = 2;
   descuento: number = 0;
   neto: number = 0;
+  token: any;
 
   constructor(
     private albaranService: AlbaranService,
     private productoService: ProductoService,
     private informationService: InformationService
-  ) {}
+  ) {
+    this.token = localStorage.getItem('token');
+  }
 
   ngOnInit() {
     this.getAllAlbaranes();
@@ -31,7 +35,11 @@ export class GenerarFacturaPage implements OnInit {
   }
 
   async getAllAlbaranes() {
-    let response = await firstValueFrom(this.albaranService.getAllAlbaranes());
+    let decode = jwtDecode(this.token) as any;
+    let userId = decode.id;
+    let response = await firstValueFrom(
+      this.albaranService.getAllAlbaranesByUserId(userId)
+    );
     this.albaranes = response;
   }
 
@@ -62,9 +70,13 @@ export class GenerarFacturaPage implements OnInit {
   }
 
   changeYear(year: number) {
-    this.albaranService.getAllAlbaranesByYear(year).subscribe((response) => {
-      this.albaranes = response;
-    });
+    let decode = jwtDecode(this.token) as any;
+    let userId = decode.id;
+    this.albaranService
+      .getAllAlbaranesByYearAndUser(year, userId)
+      .subscribe((response) => {
+        this.albaranes = response;
+      });
   }
 
   async enviarDatosABaseDeDatos() {
