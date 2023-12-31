@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { AlbaranService } from 'src/app/services/albaran.service';
 
 @Component({
@@ -7,27 +8,39 @@ import { AlbaranService } from 'src/app/services/albaran.service';
   styleUrls: ['./albaranes.page.scss'],
 })
 export class AlbaranesPage implements OnInit {
-  constructor(private albaranService: AlbaranService) {}
   albaran: any;
+  token: any;
+  constructor(private albaranService: AlbaranService) {
+    this.token = localStorage.getItem('token');
+  }
 
   ngOnInit() {
     this.changeYear(new Date().getFullYear());
   }
 
   ionViewWillEnter() {
-    this.getAllAlbaranes();
+    this.getAllAlbaranesByUserId();
     this.changeYear(new Date().getFullYear());
   }
 
   changeYear(year: number) {
-    this.albaranService.getAllAlbaranesByYear(year).subscribe((response) => {
-      this.albaran = response;
-    });
+    let decode = jwtDecode(this.token) as any;
+    let userId = decode.id;
+    this.albaranService
+      .getAllAlbaranesByYearAndUser(year, userId)
+      .subscribe((response) => {
+        this.albaran = response;
+      });
   }
 
-  getAllAlbaranes() {
-    this.albaranService.getAllAlbaranes().subscribe((response) => {
-      this.albaran = response;
-    });
+  getAllAlbaranesByUserId() {
+    let decode = jwtDecode(this.token) as any;
+    let userId = decode.id;
+
+    this.albaranService
+      .getAllAlbaranesByUserId(userId)
+      .subscribe((response) => {
+        this.albaran = response;
+      });
   }
 }

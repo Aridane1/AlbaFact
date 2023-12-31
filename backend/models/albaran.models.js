@@ -8,6 +8,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: { model: "users", key: "id" },
+    },
     date: {
       type: Sequelize.DATE,
     },

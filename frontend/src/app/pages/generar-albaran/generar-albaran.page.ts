@@ -6,6 +6,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 import { InformationService } from 'src/app/services/information.service';
 import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-generar-albaran',
@@ -19,6 +20,7 @@ export class GenerarAlbaranPage implements OnInit {
   albaranForm: any;
   selector: boolean = false;
   index: number = 0;
+  token: any;
   constructor(
     private albaranService: AlbaranService,
     private informationService: InformationService,
@@ -26,6 +28,7 @@ export class GenerarAlbaranPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
+    this.token = localStorage.getItem('token');
     this.inicialiteForm();
   }
 
@@ -59,7 +62,12 @@ export class GenerarAlbaranPage implements OnInit {
   }
 
   async generarAlbaran() {
-    const response = await firstValueFrom(this.albaranService.postAlbaran());
+    let decode: any = jwtDecode(this.token) as any;
+    let userId = decode.id;
+    let user = { userId: userId };
+    const response = await firstValueFrom(
+      this.albaranService.postAlbaran(user)
+    );
     if (typeof response === 'object' && response !== null) {
       this.albaran = [response];
       let today = new Date(this.albaran[0].date);
