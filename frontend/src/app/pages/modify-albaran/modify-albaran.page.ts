@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
+import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 import { AlbaranService } from 'src/app/services/albaran.service';
 import { InformationService } from 'src/app/services/information.service';
@@ -80,17 +81,21 @@ export class ModifyAlbaranPage implements OnInit {
 
   async getAllProducts() {
     const response = await firstValueFrom(
-      this.productoService.getAllProductos()
+      this.productoService.getAllProductosByUserId()
     );
     this.productos = response;
     this.cargaProducto = true;
   }
 
   async getAlbaranByNumAlbaranAndYear() {
+    let token = localStorage.getItem('token') as any;
+    let decode = jwtDecode(token) as any;
+    let userId = decode.id;
     const response = await firstValueFrom(
       this.albaranService.getAlbaranByNumAlbaranAndYear(
         this.numAlbaran,
-        this.year
+        this.year,
+        userId
       )
     );
     this.albaran = response;

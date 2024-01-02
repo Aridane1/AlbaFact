@@ -8,7 +8,7 @@ const User = db.User;
 exports.signin = (req, res) => {
   const user = req.body.email;
   const pwd = req.body.password;
-  console.log(pwd);
+  console.log(pwd, user);
   if (!user || !pwd) {
     return res.status(400).json({
       error: true,

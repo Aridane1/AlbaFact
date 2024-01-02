@@ -58,6 +58,7 @@ export class GenerarAlbaranPage implements OnInit {
       importe: ['', [Validators.required]],
       producto: ['', [Validators.required]],
       precio: ['', [Validators.required]],
+      cliente: ['', [Validators.required]],
     });
   }
 
@@ -169,7 +170,7 @@ export class GenerarAlbaranPage implements OnInit {
 
   async getAllProducts() {
     const response = await firstValueFrom(
-      this.productoService.getAllProductos()
+      this.productoService.getAllProductosByUserId()
     );
     this.productos = response;
   }

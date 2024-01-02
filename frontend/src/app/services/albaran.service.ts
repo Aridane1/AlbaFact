@@ -20,8 +20,14 @@ export class AlbaranService {
     return this.httpClient.get(this.endpoint + `/${year}/${userId}`);
   }
 
-  getAlbaranByNumAlbaranAndYear(numAlbaran: number, year: number) {
-    return this.httpClient.get(this.endpoint + `/${numAlbaran}/${year}`);
+  getAlbaranByNumAlbaranAndYear(
+    numAlbaran: number,
+    year: number,
+    userId: number
+  ) {
+    return this.httpClient.get(
+      this.endpoint + `/${numAlbaran}/${year}/${userId}`
+    );
   }
 
   getDistinctYear() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
@@ -40,11 +41,14 @@ export class GenerarProductoPage implements OnInit {
   }
 
   add() {
+    let token = localStorage.getItem('token') as any;
+    let decode = jwtDecode(token) as any;
+    let userId = decode.id;
     const name = this.productoForm.get('name')?.value;
     const price = this.productoForm.get('price')?.value;
 
     this.productoService
-      .addProduct({ name: name, price: price })
+      .addProduct({ name: name, price: price, userId: userId })
       .subscribe((data) => {
         this.productoForm.reset();
       });

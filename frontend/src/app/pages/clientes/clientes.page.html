@@ -1,27 +1,27 @@
 <ion-content>
   <app-menu></app-menu>
   <div class="relative">
-    <h2 class="text-5xl text-center">Productos</h2>
+    <h2 class="text-5xl text-center">Clientes</h2>
     <ion-icon
       name="add-circle-outline"
       class="text-6xl absolute top-0 text-slate-700 cursor-pointer"
-      routerLink="/generar-producto"
+      routerLink="/generar-clientes"
     ></ion-icon>
   </div>
   <div class="flex justify-center flex-wrap w-[95%] mt-10">
     <div class="w-[90%] flex gap-4">
-      @if(productos){ @for (item of productos; track $index) {
+      @if(clients){ @for (item of clients; track $index) {
       <div
         class="bg-gray-200 p-4 w-fit pr-12 rounded-lg shadow-md transition-transform hover:scale-105 cursor-pointer"
       >
-        <p class="text-lg font-bold">Producto: {{item.name}}</p>
-        <p class="text-gray-700">Precio: {{item.price}}</p>
+        <p class="text-lg font-bold">Cliente: {{item.name}}</p>
+        <p class="text-gray-700">NIF: {{item.cp}}</p>
         <div class="text-center">
           <button
             class="bg-green-400 w-fit px-4 py-2 rounded-lg"
-            [routerLink]="['/generar-producto', { id: item.id }]"
+            [routerLink]="['/generar-clientes', { id: item.id }]"
           >
-            Actualizar Producto
+            Actualizar Cliente
           </button>
         </div>
       </div>

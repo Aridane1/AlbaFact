@@ -5,6 +5,7 @@ import { AlbaranService } from 'src/app/services/albaran.service';
 import { InformationService } from 'src/app/services/information.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { jsPDF } from 'jspdf';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-generar-factura',
@@ -13,6 +14,8 @@ import { jsPDF } from 'jspdf';
 })
 export class GenerarFacturaPage implements OnInit {
   albaranes: any;
+  clientes: any;
+  clienteSelected: any;
   informations: any;
   productos: any;
   datosSeleccionados: any = [];
@@ -24,6 +27,7 @@ export class GenerarFacturaPage implements OnInit {
 
   constructor(
     private albaranService: AlbaranService,
+    private clientService: ClienteService,
     private productoService: ProductoService,
     private informationService: InformationService
   ) {
@@ -32,6 +36,7 @@ export class GenerarFacturaPage implements OnInit {
 
   ngOnInit() {
     this.getAllAlbaranes();
+    this.getAllClientByUserId();
     this.changeYear(new Date().getFullYear());
   }
 
@@ -42,6 +47,17 @@ export class GenerarFacturaPage implements OnInit {
       this.albaranService.getAllAlbaranesByUserId(userId)
     );
     this.albaranes = response;
+  }
+
+  async getAllClientByUserId() {
+    let response = await firstValueFrom(this.clientService.getAllByUserId());
+    this.clientes = response;
+  }
+
+  onClientSelected() {
+    this.clienteSelected = this.clientes.find(
+      (cliente: any) => cliente.name === this.clienteSelected
+    );
   }
 
   generarPDF(): void {
@@ -70,23 +86,32 @@ export class GenerarFacturaPage implements OnInit {
     const marginLeft = 10;
     const marginTop = 20;
 
+    let token = localStorage.getItem('token') as any;
+    let decode = jwtDecode(token) as any;
+
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
-
-    doc.text('CSVidagri S.L.', 150, 8);
-    doc.text('NIF.: B02875037', 150, 16);
-    doc.text('Calle El Pilar, 25.', 150, 24);
-    doc.text('35468 Gáldar. Las Palmas', 150, 32);
-    let namePerson = prompt('Introduce el nombre de la persona:');
-    let DNI = prompt('Introduce el DNI de la persona:');
+    doc.text(`${this.clienteSelected.name}`, 150, 8);
+    doc.text(`NIF: ${this.clienteSelected.nif}`, 150, 16);
+    doc.text(`${this.clienteSelected.calle}`, 150, 24);
+    doc.text(
+      `${this.clienteSelected.cp} ${this.clienteSelected.localidad}`,
+      150,
+      32
+    );
+    let namePerson = decode.name;
+    let DNI = decode.dni;
+    let direccion = decode.direccion;
+    let cp = decode.cp;
+    let localidad = prompt('Introduce tu localidad:');
     let numFactura = prompt('Introduce el numero de la factura:');
 
     doc.text(`Numero factura: ${numFactura}`, 150, 40);
     doc.text(`${namePerson}`, marginLeft, 8);
-    doc.text('BARRANCO EL PINAR Nº10', marginLeft, 16);
-    doc.text('FONTANALES MOYA', marginLeft, 24);
+    doc.text(`${direccion}`, marginLeft, 16);
+    doc.text(`${localidad}`, marginLeft, 24);
     doc.text(`DNi: ${DNI}`, marginLeft, 32);
-    doc.text('CP: 34520', marginLeft, 40);
+    doc.text(`CP:${cp}`, marginLeft, 40);
 
     const fechaActual = new Date();
     const mesActual = fechaActual.toLocaleDateString('es-ES', {
@@ -144,7 +169,7 @@ export class GenerarFacturaPage implements OnInit {
 
   async getAllProducts() {
     const response = await firstValueFrom(
-      this.productoService.getAllProductos()
+      this.productoService.getAllProductosByUserId()
     );
     this.productos = response;
   }

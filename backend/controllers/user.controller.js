@@ -10,6 +10,7 @@ exports.create = (req, res) => {
     password: req.body.password,
     dni: req.body.dni,
     direccion: req.body.direccion,
+    cp: req.body.cp,
   };
 
   User.findOne({ where: { email: newUser.email } }).then((data) => {

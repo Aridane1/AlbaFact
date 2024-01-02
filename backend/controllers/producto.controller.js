@@ -14,8 +14,8 @@ exports.create = (req, res) => {
     });
 };
 
-exports.getAll = (req, res) => {
-  Producto.findAll()
+exports.getAllProductByUserId = (req, res) => {
+  Producto.findAll({ where: { userId: req.params.userId } })
     .then((data) => {
       res.send(data);
     })

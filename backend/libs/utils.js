@@ -14,6 +14,7 @@ function generateToken(user) {
     password: user.password,
     dni: user.dni,
     direccion: user.direccion,
+    cp: user.cp,
   };
 
   // .env should contain a line like JWT_SECRET=V3RY#1MP0RT@NT$3CR3T#
@@ -33,6 +34,7 @@ function getCleanUser(user) {
     password: user.password,
     dni: user.dni,
     direccion: user.direccion,
+    cp: user.cp,
   };
 }
 

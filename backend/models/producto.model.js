@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
     price: {
       type: Sequelize.DECIMAL(10, 2),
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      references: { model: "users", key: "id" },
+    },
   });
   return Producto;
 };

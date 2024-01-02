@@ -1,7 +1,9 @@
 <div class="bg-slate-700 text-white h-14 flex items-center">
-  <div class="w-[40rem] flex justify-around">
-    <button class="text-3xl" routerLink="/albaranes">Ver Albaranes</button>
-    <button class="text-3xl" routerLink="/generar-factura">Facturas</button>
-    <button class="text-3xl" routerLink="/productos">Ver Productos</button>
+  <div class="flex sm:gap-9 justify-around ml-5">
+    <button class="sm:text-3xl" routerLink="/albaranes">Albaranes</button>
+    <button class="sm:text-3xl" routerLink="/generar-factura">Facturas</button>
+    <button class="sm:text-3xl" routerLink="/productos">Productos</button>
+    <button class="sm:text-3xl" routerLink="/clientes">Clientes</button>
+    <button class="sm:text-3xl" (click)="logOut()">Cerrar sesión</button>
   </div>
 </div>

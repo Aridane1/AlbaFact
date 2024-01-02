@@ -14,12 +14,9 @@ export class AlbaranesPage implements OnInit {
     this.token = localStorage.getItem('token');
   }
 
-  ngOnInit() {
-    this.changeYear(new Date().getFullYear());
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
-    this.getAllAlbaranesByUserId();
     this.changeYear(new Date().getFullYear());
   }
 

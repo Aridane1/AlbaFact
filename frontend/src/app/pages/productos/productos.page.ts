@@ -8,7 +8,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   styleUrls: ['./productos.page.scss'],
 })
 export class ProductosPage implements OnInit {
-  productos: any;
+  productos: any = [];
   constructor(private productoService: ProductoService) {}
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class ProductosPage implements OnInit {
 
   async getAllProductos() {
     this.productos = await firstValueFrom(
-      this.productoService.getAllProductos()
+      this.productoService.getAllProductosByUserId()
     );
   }
 }

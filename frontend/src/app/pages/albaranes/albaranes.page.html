@@ -11,6 +11,7 @@
   </div>
   <div class="flex justify-center mt-10">
     <div class="w-[85.5%] flex justify-center flex-wrap gap-4">
+      @if(albaran){
       <div
         *ngFor="let item of albaran; let i = index"
         class="border-2 rounded shadow-xl w-90 p-4 cursor-pointer"
@@ -19,6 +20,7 @@
         <p class="font-bold">Nº de Albarán: {{ item.numAlbaran }}</p>
         <p>Fecha de Creación: {{ item.date | date:'yyyy-MM-dd' }}</p>
       </div>
+      }
     </div>
   </div>
 </ion-content>

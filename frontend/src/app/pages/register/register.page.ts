@@ -21,6 +21,7 @@ export class RegisterPage implements OnInit {
       dni: ['', Validators.required],
       direccion: ['', Validators.required],
       password: ['', Validators.required],
+      cp: ['', Validators.required],
     });
   }
 
@@ -33,6 +34,7 @@ export class RegisterPage implements OnInit {
       const password = this.registerForm.get('password')?.value;
       const dni = this.registerForm.get('dni')?.value;
       const direccion = this.registerForm.get('direccion')?.value;
+      const cp = this.registerForm.get('cp')?.value;
 
       let user: any = {
         email: email,
@@ -40,6 +42,7 @@ export class RegisterPage implements OnInit {
         name: name,
         dni: dni,
         direccion: direccion,
+        cp: cp,
       };
 
       this.userService.register(user).subscribe((res) => {

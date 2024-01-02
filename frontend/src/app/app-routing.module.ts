@@ -68,6 +68,27 @@ const routes: Routes = [
         (m) => m.RegisterPageModule
       ),
   },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'clientes',
+    canActivate: [GuardGuard],
+    loadChildren: () =>
+      import('./pages/clientes/clientes.module').then(
+        (m) => m.ClientesPageModule
+      ),
+  },
+  {
+    path: 'generar-clientes',
+    canActivate: [GuardGuard],
+    loadChildren: () =>
+      import('./pages/generar-clientes/generar-clientes.module').then(
+        (m) => m.GenerarClientesPageModule
+      ),
+  },
 ];
 
 @NgModule({

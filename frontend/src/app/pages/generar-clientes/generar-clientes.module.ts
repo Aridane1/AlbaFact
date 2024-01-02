@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { GenerarFacturaPageRoutingModule } from './generar-factura-routing.module';
+import { GenerarClientesPageRoutingModule } from './generar-clientes-routing.module';
 
-import { GenerarFacturaPage } from './generar-factura.page';
+import { GenerarClientesPage } from './generar-clientes.page';
 import { ComponentsModule } from 'src/app/shared/components.module';
 
 @NgModule({
@@ -14,10 +14,10 @@ import { ComponentsModule } from 'src/app/shared/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    GenerarFacturaPageRoutingModule,
+    GenerarClientesPageRoutingModule,
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [GenerarFacturaPage],
+  declarations: [GenerarClientesPage],
 })
-export class GenerarFacturaPageModule {}
+export class GenerarClientesPageModule {}

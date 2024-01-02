@@ -7,6 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     name: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
     email: {
       type: Sequelize.STRING,
@@ -17,9 +18,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     dni: {
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    cp: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     direccion: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
   });
   return User;
